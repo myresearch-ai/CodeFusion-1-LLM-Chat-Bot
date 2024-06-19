@@ -1,0 +1,182 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "a7f3d1a1-ff4f-4068-b449-410b281d2e7e",
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1,
+      "position": [
+        360,
+        380
+      ],
+      "webhookId": "6674a660-1ff6-4bf2-b53a-d99036c85184"
+    },
+    {
+      "parameters": {
+        "agent": "conversationalAgent",
+        "options": {}
+      },
+      "id": "85b8342b-1666-4b6e-9bf1-bc8c7b47cae2",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        580,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "fd0e340e-9e25-4426-b8f0-0a6c850c48c4",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        460,
+        600
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "TZMihWDepf9SLLLo",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "faee3be1-4c8d-4960-aff6-87e7bf3ba05e",
+      "name": "SerpAPI",
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        700,
+        600
+      ],
+      "credentials": {
+        "serpApi": {
+          "id": "xKabNeL8G6TNEcjC",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "743e8eec-ad23-4569-a24b-6f481004a653",
+      "name": "Wikipedia",
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        840,
+        600
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "55e84825-4e10-4601-9d59-5a450e0f7ccd",
+      "name": "Calculator",
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        960,
+        600
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "0ca2dac1-6e1f-491b-b6c2-bd01fdb6c2c9",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.2,
+      "position": [
+        580,
+        600
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Chat Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b66f3634-6382-442b-8b45-987e49243a0d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5224f86713562fbe271730c21168fcdfe6beddd107f424bb9459f98c8a5c9da1"
+  },
+  "id": "sIHtnOQ1yUxGQm9W",
+  "tags": []
+}
