@@ -3,5 +3,6 @@ logs_folder: "..docs"
 log_file: logs.txt
 max_retry_attempts: 3
 timeout: 10
+memory_length: 5
 serpapi_key_env: SERPAPI_API_KEY
 openai_api_key_env: OPENAI_API_KEY

@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 import wikipedia
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import load_tools, initialize_agent, AgentType
+from langchain.memory import ConversationBufferMemory
 
 # Load environment variables from .env file
 load_dotenv()
@@ -23,13 +24,28 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
-llm = ChatOpenAI(temperature=0)
-tools = load_tools(['serpapi', 'wikipedia', 'llm-math'], llm=llm)
+# Initialize memory
+memory = ConversationBufferMemory(
+    max_length=CONFIG["memory_length"], memory_key="chat_history"
+)
 
-# Initialize the agent
-agent = initialize_agent(tools=tools, llm=llm, agent=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION, verbose=True)
+# Initialize model
+llm = ChatOpenAI(temperature=0)
+
+# Load tools
+tools = load_tools(["serpapi", "wikipedia", "llm-math"], llm=llm)
+
+# Initialize the agent with memory
+agent = initialize_agent(
+    tools=tools,
+    llm=llm,
+    agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION,
+    memory=memory,
+    handle_parsing_errors=True,
+    verbose=True,
+)
 
 if __name__ == "__main__":
     user_input = input("Enter your query: ")
-    response = agent.run(user_input)
+    response = agent.run(input=user_input)
     print(f"Bot: {response}")
